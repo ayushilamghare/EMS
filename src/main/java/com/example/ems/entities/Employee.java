@@ -11,7 +11,6 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 public class Employee {
 
@@ -22,7 +21,23 @@ public class Employee {
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
-    @Column(unique = true)
-    private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "dept_id")
+    private Department department;
+
+    @Override
+    public int hashCode() {
+        return empId != null ? empId.hashCode() : super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Employee that = (Employee) obj;
+        return empId != null && empId.equals(that.empId);
+    }
+
 
 }
