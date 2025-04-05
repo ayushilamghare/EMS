@@ -3,16 +3,14 @@ package com.example.ems.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "employees")
@@ -25,7 +23,7 @@ public class Department {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Employee> employees = new HashSet<>();
 
     public boolean addEmployee(Employee employee){
@@ -37,8 +35,15 @@ public class Department {
         return false;
     }
 
+    public boolean removeEmployee(Employee employee){
+        if(employees.remove(employee))
+        {
+            employee.setDepartment(null);
+            return true;
+        }
+        return false;
+    }
+
 
 }
 
-
-// 1 -> HR

@@ -1,0 +1,13 @@
+5 April 2025
+
+Git Task
+1. git switch main
+2. git pull origin main
+3. git branch onetoone
+4. git switch onetoone
+
+Main Task
+1. Add Employee
+2. Employee Controller add endpoint to save address of employee by empId (POST)
+3. Go to Employee Service, fetch employee from db, set address for that employee and then save the employee
+4. Check in the DB if address is present in the table for that employee, because of cascading.

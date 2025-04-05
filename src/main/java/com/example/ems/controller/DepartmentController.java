@@ -18,23 +18,29 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @PostMapping
-    public ResponseEntity<?> addDepartment(@RequestBody Department department){
+    public ResponseEntity<?> addDepartment(@RequestBody Department department) {
         departmentService.addDepartment(department);
         return ResponseEntity.ok("Saved");
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Department>> getAllDepartments(){
+    public ResponseEntity<List<Department>> getAllDepartments() {
         return new ResponseEntity<>(departmentService.getAllDepartments(), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Department> getDepartment(@RequestParam int deptId) {
+        //Request started
+        Department department = departmentService.getDepartmentById(deptId);
+        return ResponseEntity.ok(department);
     }
 
 
     @PostMapping("/employee/{departmentId}")
-    public ResponseEntity<?> addEmployeeInDepartment(@RequestBody Employee employee, @PathVariable int departmentId){
+    public ResponseEntity<?> addEmployeeInDepartment(@RequestBody Employee employee, @PathVariable int departmentId) {
         departmentService.addEmployeeInDepartment(departmentId, employee);
-        return ResponseEntity.ok("Saved employee in Dept ID : "+departmentId);
+        return ResponseEntity.ok("Saved employee in Dept ID : " + departmentId);
     }
-
 
 
 }

@@ -1,14 +1,12 @@
 package com.example.ems.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Date;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -25,6 +23,11 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "dept_id")
     private Department department;
+
+    @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Address employeeAddress;
+
+
 
     @Override
     public int hashCode() {

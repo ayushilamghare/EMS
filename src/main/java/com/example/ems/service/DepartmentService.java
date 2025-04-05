@@ -4,7 +4,7 @@ import com.example.ems.entities.Department;
 import com.example.ems.entities.Employee;
 import com.example.ems.exceptions.EmsException;
 import com.example.ems.repositories.DepartmentRepository;
-import com.example.ems.repositories.EmployeeRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +16,23 @@ public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+
+    /*
+        Init Method
+     */
+    @PostConstruct
+    public void init(){
+//        this.getDepartmentById(1).getEmployees().size();
+    }
+
+
     public void addDepartment(Department department){
         departmentRepository.save(department);
     }
 
     public Department getDepartmentById(int departmentId){
-        return departmentRepository.findById(departmentId).orElseThrow(() -> new RuntimeException("Department does not exist"));
+        Department department = departmentRepository.findById(departmentId).orElseThrow(() -> new RuntimeException("Department does not exist"));
+        return department;
     }
 
     public List<Department> getAllDepartments(){
